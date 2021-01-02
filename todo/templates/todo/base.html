@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{%  static  'todo/style.css'  %}">
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="nav-brand">
+            <a href="{% url 'home' %}"> MYTODO</a>
+        </div>
+        <div class="nav-link">
+            {% if user.is_authenticated %} <b>{{user.username}}</b>
+
+
+
+            <a href="{% url 'createtodo' %}">Create</a>
+            <a href="{% url 'currenttodos' %}">MyTodos</a>
+            <a href="{% url 'completedtodos' %}">Completed</a>
+
+            <br> {% else %}
+            <a href="{% url 'signupuser' %}">Sign Up</a>
+            <a href="{% url 'loginuser' %}">Sign In</a> {% endif %}
+            <form action="{% url 'logoutuser' %}" method="POST">
+                {% csrf_token %}
+
+                <button type="submit" class="btn">Logout</button>
+            </form>
+        </div>
+    </nav>
+    {% block content %} {% endblock content %}
+</body>
+<footer>
+    <div class="footer">
+        Created by Daniya
+    </div>
+</footer>
+
+</html>
